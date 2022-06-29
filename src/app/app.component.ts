@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as XLSX from 'xlsx';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+
 import { Observable } from 'rxjs';
 
 @Component({
@@ -15,9 +15,6 @@ export class AppComponent {
   fileForm = new FormGroup({
     file: new FormControl('', [Validators.required])
   });
-  constructor(
-
-  ) { }
   uploadFile() {
     console.log('submit');
     const fileReader = new FileReader();

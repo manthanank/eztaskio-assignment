@@ -9,7 +9,6 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataService } from './services/data.service';
 
-
 @NgModule({
   declarations: [
     AppComponent
