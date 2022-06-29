@@ -19,7 +19,7 @@ import { DataService } from './services/data.service';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [DataService],
   bootstrap: [AppComponent]
