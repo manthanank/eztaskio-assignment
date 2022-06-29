@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "angular-firestore-3ed06": {
+      "hosting": {
+        "angular-firestore": [
+          "angular-firestore-3ed06"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "angular-firestore-3ed06"
+  }
+}
