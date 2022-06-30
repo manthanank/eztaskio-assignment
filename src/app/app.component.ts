@@ -20,8 +20,12 @@ export class AppComponent {
   file: any;
   convertToJson: any;
   item$: any = Observable<Item[]>;
+  data = [];
   fileForm = new FormGroup({
     file: new FormControl('', [Validators.required])
+  });
+  excelForm = new FormGroup({
+    excel: new FormControl('', [Validators.required])
   });
   constructor(private dataService: DataService, firestore: Firestore) {
   }
@@ -47,5 +51,22 @@ export class AppComponent {
   selectFile(event: any) {
     this.file = event.target.files[0];
     console.log(this.file);
+  }
+  onFileSubmit(event: any) {
+    const target: DataTransfer = <DataTransfer>(event.target);
+    if (target.files.length !== 1) {
+      throw new Error('Cannot use multiple files');
+    }
+    const reader: FileReader = new FileReader();
+    reader.readAsBinaryString(target.files[0]);
+    reader.onload = (e: any) => {
+      const bstr: string = e.target.result;
+      const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
+      const wsname: string = wb.SheetNames[0];
+      const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+      console.log(ws);
+      this.data = (XLSX.utils.sheet_to_json(ws, { header: 1 }));
+      console.log(this.data);
+    }
   }
 }
