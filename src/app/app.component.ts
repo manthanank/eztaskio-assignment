@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as XLSX from 'xlsx';
-import { DataPost } from './models/data.model';
+import { DataPost } from './models/data';
+import { DataService } from './services/data.service';
 import { Observable } from 'rxjs';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { Data } from './data';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,6 +17,10 @@ export class AppComponent {
   fileForm = new FormGroup({
     file: new FormControl('', [Validators.required])
   });
+  constructor(private dataService: DataService) { }
+  ngOnInit() {
+
+  }
   uploadFile() {
     const fileReader = new FileReader();
     fileReader.readAsBinaryString(this.file);
