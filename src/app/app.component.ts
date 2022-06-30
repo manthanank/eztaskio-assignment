@@ -4,8 +4,13 @@ import * as XLSX from 'xlsx';
 import { DataPost } from './models/data';
 import { DataService } from './services/data.service';
 import { Observable } from 'rxjs';
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { getFirestore, addDoc } from 'firebase/firestore';
+import { Firestore, collection, collectionData } from '@angular/fire/firestore';
 import { Data } from './data';
+
+interface Item {
+  name: string
+};
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,10 +19,12 @@ import { Data } from './data';
 export class AppComponent {
   file: any;
   convertToJson: any;
+  item$: any = Observable<Item[]>;
   fileForm = new FormGroup({
     file: new FormControl('', [Validators.required])
   });
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, firestore: Firestore) {
+  }
   ngOnInit() {
 
   }

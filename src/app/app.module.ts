@@ -8,6 +8,7 @@ import { environment } from '../environments/environment';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataService } from './services/data.service';
+import { provideDatabase,getDatabase } from '@angular/fire/database';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { DataService } from './services/data.service';
     provideFirestore(() => getFirestore()),
     ReactiveFormsModule,
     FormsModule,
+    provideDatabase(() => getDatabase()),
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

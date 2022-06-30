@@ -6,6 +6,5 @@ import { collection, addDoc } from "firebase/firestore";
 export class DataService {
 
   constructor() { }
-  getData() {
-  }
+
 }
