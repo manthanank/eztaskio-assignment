@@ -4,7 +4,6 @@ import * as XLSX from 'xlsx';
 import { DataPost } from './models/data.model';
 import { Observable } from 'rxjs';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -30,6 +29,7 @@ export class AppComponent {
       );
       console.log(workbook);
     }
+
   }
   selectFile(event: any) {
     this.file = event.target.files[0];
