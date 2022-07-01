@@ -45,21 +45,64 @@
   </div>
 
   <div class="my-2">{{ convertToJson }}</div>
-  <div class="my-2">{{ data }}</div>
   <div class="my-2">
-    <table>
-      <thead>
-        {{
-          postedData
-        }}
-      </thead>
-      <td>
-        <tr>
-          {{
-            postedData
-          }}
-        </tr>
-      </td>
-    </table>
+    <button
+      type="submit"
+      class="btn btn-primary"
+      (click)="exportexcel()"
+      [disabled]="!postedData"
+    >
+      Export to Excel
+    </button>
   </div>
+  <div class="my-2">{{ data }}</div>
+</div>
+<div>
+  <table class="table" id="excel-table">
+    <thead>
+      <tr>
+        <th scope="col">leadTitle</th>
+        <th scope="col">contactName</th>
+        <th scope="col">leadSource</th>
+        <th scope="col">companyName</th>
+        <th scope="col">product</th>
+        <th scope="col">countryCode</th>
+        <th scope="col">email</th>
+        <th scope="col">assignToTeamName</th>
+        <th scope="col">assignToUserEmail</th>
+        <th scope="col">note</th>
+        <th scope="col">address</th>
+        <th scope="col">city</th>
+        <th scope="col">state</th>
+        <th scope="col">region</th>
+        <th scope="col">postalCode</th>
+        <th scope="col">countryName</th>
+        <th scope="col">Age</th>
+        <th scope="col">Salary</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of postedData; index as i">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ item.leadTitle }}</td>
+        <td>{{ item.contactName }}</td>
+        <td>{{ item.leadSource }}</td>
+        <td>{{ item.companyName }}</td>
+        <td>{{ item.product }}</td>
+        <td>{{ item.countryCode }}</td>
+        <td>{{ item.email }}</td>
+        <td>{{ item.assignToTeamName }}</td>
+        <td>{{ item.assignToUserEmail }}</td>
+        <td>{{ item.note }}</td>
+        <td>{{ item.address }}</td>
+        <td>{{ item.city }}</td>
+        <td>{{ item.state }}</td>
+        <td>{{ item.region }}</td>
+        <td>{{ item.postalCode }}</td>
+        <td>{{ item.countryName }}</td>
+        <td>{{ item.Age }}</td>
+        <td>{{ item.Salary }}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
