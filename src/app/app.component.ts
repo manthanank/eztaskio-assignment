@@ -22,6 +22,7 @@ export class AppComponent {
   item$: any = Observable<Item[]>;
   data = [];
   postedData: any;
+  fileName = 'ExcelSheet.xlsx';
   fileForm = new FormGroup({
     file: new FormControl('', [Validators.required])
   });
@@ -32,7 +33,7 @@ export class AppComponent {
   }
   ngOnInit() {
     this.dataService.getData().subscribe(data => {
-      //console.log(data);
+      console.log("getData", data);
       this.postedData = data;
     });
   }
@@ -47,9 +48,13 @@ export class AppComponent {
         let rowObject = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
         console.log(rowObject);
         this.convertToJson = JSON.stringify(rowObject, undefined, 4);
+        console.log(this.convertToJson);
       }
       );
-      console.log(workbook);
+      //console.log(workbook);
+      this.dataService.postData(workbook).subscribe(data => {
+        console.log("final data received", data);
+      });
     }
   }
   selectFile(event: any) {
@@ -71,6 +76,21 @@ export class AppComponent {
       console.log(ws);
       this.data = (XLSX.utils.sheet_to_json(ws, { header: 1 }));
       console.log(this.data);
+      this.dataService.postData(ws).subscribe(data => {
+        console.log("final data received", data);
+      });
     }
+
+  }
+  exportexcel() {
+    let element = document.getElementById('excel-table');
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, this.fileName);
   }
 }
