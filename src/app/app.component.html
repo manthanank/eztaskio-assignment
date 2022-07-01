@@ -59,6 +59,15 @@
 </div>
 <div>
   <table class="table" id="excel-table">
+    <tbody>
+      <tr *ngFor="let row of data">
+        <td *ngFor="let val of row">
+          {{ val }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="table" id="excel-table">
     <thead>
       <tr>
         <th scope="col">leadTitle</th>

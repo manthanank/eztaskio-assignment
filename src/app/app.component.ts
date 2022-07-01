@@ -43,18 +43,19 @@ export class AppComponent {
     fileReader.readAsBinaryString(this.file);
     fileReader.onload = () => {
       let binaryString = fileReader.result;
-      let workbook = XLSX.read(binaryString, { type: 'binary' });
-      workbook.SheetNames.forEach((sheetName) => {
-        let rowObject = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
+      let strings = XLSX.read(binaryString, { type: 'binary' });
+      strings.SheetNames.forEach((sheetName) => {
+        let rowObject = XLSX.utils.sheet_to_json(strings.Sheets[sheetName]);
         console.log(rowObject);
         this.convertToJson = JSON.stringify(rowObject, undefined, 4);
-        console.log(this.convertToJson);
+        console.log('string', JSON.parse(this.convertToJson));
+        this.dataService.postData(Object.assign({}, JSON.parse(this.convertToJson))).subscribe(data => {
+          console.log("final data received", data);
+        })
       }
       );
-      //console.log(workbook);
-      this.dataService.postData(workbook).subscribe(data => {
-        console.log("final data received", data);
-      });
+      console.log('string', strings);
+
     }
   }
   selectFile(event: any) {
@@ -76,11 +77,7 @@ export class AppComponent {
       console.log(ws);
       this.data = (XLSX.utils.sheet_to_json(ws, { header: 1 }));
       console.log(this.data);
-      this.dataService.postData(ws).subscribe(data => {
-        console.log("final data received", data);
-      });
     }
-
   }
   exportexcel() {
     let element = document.getElementById('excel-table');
