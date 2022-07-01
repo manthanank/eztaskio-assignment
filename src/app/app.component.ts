@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as XLSX from 'xlsx';
 import { DataPost } from './models/data';
@@ -16,7 +16,7 @@ interface Item {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   file: any;
   convertToJson: any;
   item$: any = Observable<Item[]>;
@@ -49,13 +49,12 @@ export class AppComponent {
         console.log(rowObject);
         this.convertToJson = JSON.stringify(rowObject, undefined, 4);
         console.log('string', JSON.parse(this.convertToJson));
-        this.dataService.postData(Object.assign({}, JSON.parse(this.convertToJson))).subscribe(data => {
+        this.dataService.postData(Object.assign({}, (JSON.parse(this.convertToJson)))).subscribe(data => {
           console.log("final data received", data);
         })
       }
       );
       console.log('string', strings);
-
     }
   }
   selectFile(event: any) {
