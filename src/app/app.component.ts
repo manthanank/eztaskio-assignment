@@ -21,6 +21,7 @@ export class AppComponent {
   convertToJson: any;
   item$: any = Observable<Item[]>;
   data = [];
+  postedData: any;
   fileForm = new FormGroup({
     file: new FormControl('', [Validators.required])
   });
@@ -30,8 +31,12 @@ export class AppComponent {
   constructor(private dataService: DataService, firestore: Firestore) {
   }
   ngOnInit() {
-
+    this.dataService.getData().subscribe(data => {
+      //console.log(data);
+      this.postedData = data;
+    });
   }
+
   uploadFile() {
     const fileReader = new FileReader();
     fileReader.readAsBinaryString(this.file);
@@ -46,7 +51,6 @@ export class AppComponent {
       );
       console.log(workbook);
     }
-
   }
   selectFile(event: any) {
     this.file = event.target.files[0];

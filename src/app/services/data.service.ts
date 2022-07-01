@@ -9,8 +9,10 @@ export class DataService {
   constructor(
     private http: HttpClient
   ) { }
-  postData(data: any) {
-    return this.http.post('https://angular-firestore-3ed06-default-rtdb.firebaseio.com', data);
+  getData() {
+    return this.http.get('http://localhost:8080/api/filedatas')
   }
-
+  postData(data: any) {
+    return this.http.post('http://localhost:8080/api/filedata', data)
+  }
 }
