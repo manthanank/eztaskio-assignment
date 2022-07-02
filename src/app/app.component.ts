@@ -46,12 +46,18 @@ export class AppComponent implements OnInit {
       let strings = XLSX.read(binaryString, { type: 'binary' });
       strings.SheetNames.forEach((sheetName) => {
         let rowObject = XLSX.utils.sheet_to_json(strings.Sheets[sheetName]);
-        console.log(rowObject);
-        this.convertToJson = JSON.stringify(rowObject, undefined, 4);
-        console.log('string', JSON.parse(this.convertToJson));
-        this.dataService.postData(Object.assign({}, (JSON.parse(this.convertToJson)))).subscribe(data => {
+        console.log('string', rowObject);
+        this.dataService.postData(Object.assign({}, JSON.parse(JSON.stringify(rowObject)))).subscribe(data => {
           console.log("final data received", data);
         })
+        this.convertToJson = JSON.stringify(rowObject, undefined, 4);
+        console.log('string', JSON.stringify(JSON.parse(this.convertToJson.toString())));
+        // this.dataService.postData(Object.assign({}, (JSON.parse(this.convertToJson)))).subscribe(data => {
+        //   console.log("final data received", data);
+        // })
+        // this.dataService.postData(Object.assign({}, JSON.stringify(JSON.parse(this.convertToJson.toString())))).subscribe(data => {
+        //   console.log("final data received", data);
+        // })
       }
       );
       console.log('string', strings);
@@ -73,9 +79,9 @@ export class AppComponent implements OnInit {
       const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
       const wsname: string = wb.SheetNames[0];
       const ws: XLSX.WorkSheet = wb.Sheets[wsname];
-      console.log(ws);
+      console.log('string', ws);
       this.data = (XLSX.utils.sheet_to_json(ws, { header: 1 }));
-      console.log(this.data);
+      console.log('string', this.data);
     }
   }
   exportexcel() {
