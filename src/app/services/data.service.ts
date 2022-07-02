@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, Firestore, getFirestore, doc, setDoc } from "firebase/firestore";
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { DataPost } from '../models/data';
+import { DataPost } from '../models/data.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,4 +17,5 @@ export class DataService {
   postData(data: any) {
     return this.http.post(this.posturl, data)
   }
+
 }
