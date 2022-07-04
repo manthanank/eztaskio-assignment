@@ -2,7 +2,14 @@
   <div>
     <h3 style="text-align: center">Upoad file</h3>
   </div>
-
+  <div
+    class="alert alert-danger"
+    role="alert"
+    style="text-align: center"
+    *ngIf="error"
+  >
+    {{ error }}
+  </div>
   <div class="my-3">
     <form [formGroup]="fileForm">
       <div class="form-group">
@@ -18,17 +25,18 @@
         />
       </div>
       <button
-        (click)="uploadFile()"
+        (click)="uploadFileData()"
         type="submit"
         class="btn btn-primary"
         [disabled]="!fileForm.valid"
       >
         Submit
       </button>
+      <button (click)="openSnackBar()" class="btn btn-primary">Snackbar</button>
     </form>
   </div>
 
-  <div class="my-3">
+  <!-- <div class="my-3">
     <form [formGroup]="excelForm">
       <div class="form-group">
         <label for="file">Excel File Only (Without Submit Button)</label>
@@ -42,9 +50,9 @@
         />
       </div>
     </form>
-  </div>
+  </div> -->
 
-  <div class="my-2">{{ convertToJson }}</div>
+  <!-- <div class="my-2">{{ convertToJson }}</div> -->
   <div class="my-2">
     <button
       type="submit"
@@ -58,7 +66,7 @@
   <div class="my-2">{{ data }}</div>
 </div>
 <div>
-  <table class="table" id="excel-table">
+  <!-- <table class="table" id="excel-table">
     <tbody>
       <tr *ngFor="let row of data">
         <td *ngFor="let val of row">
@@ -66,7 +74,7 @@
         </td>
       </tr>
     </tbody>
-  </table>
+  </table> -->
   <table class="table" id="excel-table">
     <thead>
       <tr>
