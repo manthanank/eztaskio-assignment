@@ -68,7 +68,6 @@ export class AppComponent implements OnInit {
           id: JSON.stringify(JSON.parse(this.convertToJson.toString()))
         });
         console.log("result", this.data);
-        console.log("Document written with ID: ", result.id);
 
         // Add a new document with a generated id
         const newCityRef = doc(collection(this.firestore, "cities"));
@@ -84,28 +83,28 @@ export class AppComponent implements OnInit {
     this.file = event.target.files[0];
     console.log(this.file);
   }
-  // onFileSubmit(event: any) {
-  //   const target: DataTransfer = <DataTransfer>(event.target);
-  //   if (target.files.length !== 1) {
-  //     throw new Error('Cannot use multiple files');
-  //   }
-  //   const reader: FileReader = new FileReader();
-  //   reader.readAsBinaryString(target.files[0]);
-  //   reader.onload = async (e: any) => {
-  //     const bstr: string = e.target.result;
-  //     const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
-  //     const wsname: string = wb.SheetNames[0];
-  //     const ws: XLSX.WorkSheet = wb.Sheets[wsname];
-  //     console.log('string', ws);
-  //     this.data = (XLSX.utils.sheet_to_json(ws, { header: 1 }));
-  //     Object.assign(this.data, JSON.parse(JSON.stringify(this.data)));
-  //     console.log('string', this.data);
-  //     const newCityRef = doc(collection(this.firestore, "cities"));
+  onFileSubmit(event: any) {
+    const target: DataTransfer = <DataTransfer>(event.target);
+    if (target.files.length !== 1) {
+      throw new Error('Cannot use multiple files');
+    }
+    const reader: FileReader = new FileReader();
+    reader.readAsBinaryString(target.files[0]);
+    reader.onload = async (e: any) => {
+      const bstr: string = e.target.result;
+      const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
+      const wsname: string = wb.SheetNames[0];
+      const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+      console.log('string', ws);
+      this.data = (XLSX.utils.sheet_to_json(ws, { header: 1 }));
+      Object.assign(this.data, JSON.parse(JSON.stringify(this.data)));
+      console.log('string', this.data);
+      const newCityRef = doc(collection(this.firestore, "cities"));
 
-  //     // later...
-  //     await setDoc(newCityRef, Object.assign({}, Object.assign({}, this.data)));
-  //   }
-  // }
+      // later...
+      await setDoc(newCityRef, Object.assign({}, Object.assign({}, this.data)));
+    }
+  }
   exportexcel() {
     let element = document.getElementById('excel-table');
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
