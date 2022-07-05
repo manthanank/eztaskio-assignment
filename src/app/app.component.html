@@ -13,7 +13,7 @@
   <div class="my-3">
     <form [formGroup]="fileForm">
       <div class="form-group">
-        <label for="file">Excel File Only (With Submit Button)</label>
+        <label for="file">Excel File Only</label>
         <input
           type="file"
           class="form-control"
@@ -24,35 +24,19 @@
           accept=".xlsx, .xls"
         />
       </div>
-      <button
-        (click)="uploadFileData()"
-        type="submit"
-        class="btn btn-primary"
-        [disabled]="!fileForm.valid"
-      >
-        Submit
-      </button>
-      <button (click)="openSnackBar()" class="btn btn-primary">Snackbar</button>
+      <div class="container">
+        <button
+          (click)="uploadFileData()"
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="!fileForm.valid"
+        >
+          Submit
+        </button>
+      </div>
     </form>
   </div>
 
-  <!-- <div class="my-3">
-    <form [formGroup]="excelForm">
-      <div class="form-group">
-        <label for="file">Excel File Only (Without Submit Button)</label>
-        <input
-          type="file"
-          class="form-control"
-          multiple="false"
-          formControlName="excel"
-          (change)="onFileSubmit($event)"
-          accept=".xlsx, .xls"
-        />
-      </div>
-    </form>
-  </div> -->
-
-  <!-- <div class="my-2">{{ convertToJson }}</div> -->
   <div class="my-2">
     <button
       type="submit"
@@ -65,16 +49,308 @@
   </div>
   <div class="my-2">{{ data }}</div>
 </div>
+<div class="container">
+  <form [formGroup]="excelFileForm">
+    <div class="row">
+      <input
+        type="file"
+        class="form-control"
+        id="file"
+        name="file"
+        formControlName="excelfile"
+        (change)="updateData($event)"
+        accept=".xlsx, .xls"
+      />
+    </div>
+  </form>
+  <form [formGroup]="excelForm">
+    <div class="row">
+      <div class="row">
+        <div class="col">
+          <div class="col" *ngFor="let data of excelData">
+            Column Name :
+            {{ data.leadTitle }}
+          </div>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            formControlName="leadTitle"
+            [disabled]="!excelFileForm"
+          >
+            <option value="">Select required</option>
+            <option>{{ leadTitle }}</option>
+          </select>
+        </div>
+        <div class="col">
+          <div class="col" *ngFor="let data of excelData">
+            Column Name :
+            {{ data.contactName }}
+          </div>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            formControlName="contactName"
+          >
+            <option value="">Select required</option>
+            <option>{{ contactName }}</option>
+          </select>
+        </div>
+        <div class="col">
+          <div class="col" *ngFor="let data of excelData">
+            Column Name :
+            {{ data.leadSource }}
+          </div>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            formControlName="leadSource"
+          >
+            <option value="">Select required</option>
+            <option>{{ leadSource }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="col" *ngFor="let data of excelData">
+            Column Name :
+            {{ data.companyName }}
+          </div>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            formControlName="companyName"
+          >
+            <option value="">Select required</option>
+            <option>{{ companyName }}</option>
+          </select>
+        </div>
+
+        <div class="col">
+          <div class="col" *ngFor="let data of excelData">
+            Column Name :
+            {{ data.product }}
+          </div>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            formControlName="product"
+          >
+            <option value="">Select required</option>
+            <option>{{ product }}</option>
+          </select>
+        </div>
+        <div class="col">
+          <div class="col" *ngFor="let data of excelData">
+            Column Name :
+            {{ data.countryCode }}
+          </div>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            formControlName="countryCode"
+          >
+            <option value="">Select required</option>
+            <option>{{ countryCode }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="col" *ngFor="let data of excelData">
+            Column Name :
+            {{ data.email }}
+          </div>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            formControlName="email"
+          >
+            <option value="">Select required</option>
+            <option>{{ email }}</option>
+          </select>
+        </div>
+
+        <div class="col">
+          <div class="col" *ngFor="let data of excelData">
+            Column Name :
+            {{ data.assignToTeamName }}
+          </div>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            formControlName="assignToTeamName"
+          >
+            <option value="">Select required</option>
+            <option>{{ assignToTeamName }}</option>
+          </select>
+        </div>
+        <div class="col">
+          <div class="col" *ngFor="let data of excelData">
+            Column Name :
+            {{ data.assignToUserEmail }}
+          </div>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            formControlName="assignToUserEmail"
+          >
+            <option value="">Select required</option>
+            <option>{{ assignToUserEmail }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="col" *ngFor="let data of excelData">
+            Column Name :
+            {{ data.note }}
+          </div>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            formControlName="note"
+          >
+            <option value="">Select required</option>
+            <option>{{ note }}</option>
+          </select>
+        </div>
+
+        <div class="col">
+          <div class="col" *ngFor="let data of excelData">
+            Column Name :
+            {{ data.address }}
+          </div>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            formControlName="address"
+          >
+            <option value="">Select required</option>
+            <option>{{ address }}</option>
+          </select>
+        </div>
+        <div class="col">
+          <div class="col" *ngFor="let data of excelData">
+            Column Name :
+            {{ data.city }}
+          </div>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            formControlName="city"
+          >
+            <option value="">Select required</option>
+            <option>{{ city }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="col" *ngFor="let data of excelData">
+            Column Name :
+            {{ data.state }}
+          </div>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            formControlName="state"
+          >
+            <option value="">Select required</option>
+            <option>{{ state }}</option>
+          </select>
+        </div>
+
+        <div class="col">
+          <div class="col" *ngFor="let data of excelData">
+            Column Name :
+            {{ data.region }}
+          </div>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            formControlName="region"
+          >
+            <option value="">Select required</option>
+            <option>{{ region }}</option>
+          </select>
+        </div>
+
+        <div class="col">
+          <div class="col" *ngFor="let data of excelData">
+            Column Name :
+            {{ data.postalCode }}
+          </div>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            formControlName="postalCode"
+          >
+            <option value="">Select required</option>
+            <option>{{ postalCode }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="col" *ngFor="let data of excelData">
+            Column Name :
+            {{ data.countryName }}
+          </div>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            formControlName="countryName"
+          >
+            <option value="">Select required</option>
+            <option>{{ countryName }}</option>
+          </select>
+        </div>
+
+        <div class="col">
+          <div class="col" *ngFor="let data of excelData">
+            Column Name :
+            {{ data.Age }}
+          </div>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            formControlName="Age"
+          >
+            <option value="">Select required</option>
+            <option>{{ Age }}</option>
+          </select>
+        </div>
+
+        <div class="col">
+          <div class="col" *ngFor="let data of excelData">
+            Column Name :
+            {{ data.Salary }}
+          </div>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            formControlName="Salary"
+          >
+            <option value="">Select required</option>
+            <option>{{ Salary }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="container">
+        <button class="btn btn-primary" type="submit">Update</button>
+      </div>
+    </div>
+  </form>
+</div>
 <div>
-  <!-- <table class="table" id="excel-table">
-    <tbody>
-      <tr *ngFor="let row of data">
-        <td *ngFor="let val of row">
-          {{ val }}
-        </td>
-      </tr>
-    </tbody>
-  </table> -->
   <table class="table" id="excel-table">
     <thead>
       <tr>

@@ -1,4 +1,11 @@
 .mat-form-field {
     margin-right: 8px;
   }
-  
+  .col{
+    padding: 10px;
+  }
+  .container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }

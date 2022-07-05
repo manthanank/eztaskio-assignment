@@ -7,11 +7,8 @@ import { map, Observable, throwError } from 'rxjs';
 import { getFirestore, doc, addDoc, setDoc, getDoc, onSnapshot } from 'firebase/firestore';
 import { Firestore, collectionData, collection } from '@angular/fire/firestore';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
-import { ErrorMessageService } from './services/error-message.service';
 import { HttpErrorResponse } from '@angular/common/http';
-interface Item {
-  name: string
-};
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -19,28 +16,69 @@ interface Item {
 })
 export class AppComponent implements OnInit {
   error: any;
-  errMsgs = this.errorMessages.errorMessage;
   file: any;
   convertToJson: any;
-  item$: any = Observable<Item[]>;
   data = [];
   postedData: any;
-  postDatas: any;
   fileName = 'ExcelSheet.xlsx';
-  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
-  verticalPosition: MatSnackBarVerticalPosition = 'top';
+  excelData: any;
+  header: any;
+  columnName = [];
+  leadTitle = ["leadTitle"];
+  contactName = ["contactName"];
+  leadSource = ["leadSource"];
+  companyName = ["companyName"];
+  product = ["product"];
+  countryCode = ["countryCode"];
+  email = ["email"];
+  assignToTeamName = ['assignToTeamName'];
+  assignToUserEmail = ['assignToUserEmail'];
+  note = ['note'];
+  address = ['address'];
+  city = ['city'];
+  state = ['state'];
+  region = ['region'];
+  postalCode = ['postalCode'];
+  countryName = ['countryName'];
+  Age = ["Age"];
+  Salary = ["Salary"];
+
 
   fileForm = new FormGroup({
     file: new FormControl('', [Validators.required])
   });
+  excelFileForm = new FormGroup({
+    excelFile: new FormControl('', [Validators.required])
+  });
   excelForm = new FormGroup({
-    excel: new FormControl('', [Validators.required])
+    leadTitle: new FormControl('', [Validators.required]),
+    contactName: new FormControl('', [Validators.required]),
+    leadSource: new FormControl('', [Validators.required]),
+    companyName: new FormControl('', [Validators.required]),
+    product: new FormControl('', [Validators.required]),
+    countryCode: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required]),
+    assignToTeamName: new FormControl('', [Validators.required]),
+    assignToUserEmail: new FormControl('', [Validators.required]),
+    note: new FormControl('', [Validators.required]),
+    address: new FormControl('', [Validators.required]),
+    city: new FormControl('', [Validators.required]),
+    state: new FormControl('', [Validators.required]),
+    region: new FormControl('', [Validators.required]),
+    postalCode: new FormControl('', [Validators.required]),
+    countryName: new FormControl('', [Validators.required]),
+    Age: new FormControl('', [Validators.required]),
+    Salary: new FormControl('', [Validators.required])
   });
 
-  constructor(private dataService: DataService, private firestore: Firestore, private _snackBar: MatSnackBar, private errorMessages: ErrorMessageService) {
+  constructor(private dataService: DataService, private firestore: Firestore, private _snackBar: MatSnackBar) {
 
   }
   ngOnInit() {
+    this.getData();
+  }
+
+  getData() {
     this.dataService.getData().pipe(
       map(data => {
         this.postedData = data;
@@ -48,11 +86,11 @@ export class AppComponent implements OnInit {
     ).subscribe(data => {
       //this.postedData = data;
       console.log('data', this.postedData);
-    }, err => {
-      console.log('error', err);
-      this.error = err.error;
-    }
-    );
+    },
+      err => {
+        console.log('error', err);
+        this.error = err.error;
+      });
   }
 
   uploadFile() {
@@ -69,9 +107,7 @@ export class AppComponent implements OnInit {
           await setDoc(newCityRef, (Object.assign({}, (rowObject[i]))));
           console.log('data changed', rowObject[i]);
         }
-      }
-      );
-      console.log('string', docs);
+      });
     }
   }
 
@@ -84,24 +120,32 @@ export class AppComponent implements OnInit {
       docs.SheetNames.forEach(async (sheetName) => {
         let rowObject = XLSX.utils.sheet_to_json(docs.Sheets[sheetName]);
         console.log('rowObject', rowObject);
-        let data = Object.assign({}, (rowObject));
-        console.log('data', data);
+        const header = rowObject.shift();
+        // console.log('header', header);
+        // this.dataService.postData(header).subscribe(data => {
+        //   for (let i = 0; i < rowObject.length; i++) {
+        //     this.postedData = data;
+        //     console.log('data', this.postedData);
+        //   }
+        // }, err => {
+        //   console.log('error', err);
+        //   this.error = err.error;
+        // }
+        // );
         for (let i = 0; i < rowObject.length; i++) {
           this.dataService.postData(rowObject[i]).subscribe(data => {
-            console.log('data', data);
-            this.postDatas = data;
+            console.log('dataPosted', data);
+            this.getData();
           },
             err => {
               console.log('error', err);
-              this.error = this.errMsgs['NOTMATCH'];
             }
           );
         }
-      }
-      );
-      console.log('string', docs);
+      });
     }
   }
+
   selectFile(event: any) {
     this.file = event.target.files[0];
     console.log(this.file);
@@ -133,20 +177,21 @@ export class AppComponent implements OnInit {
   exportexcel() {
     let element = document.getElementById('excel-table');
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
-
     /* generate workbook and add the worksheet */
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
     /* save to file */
     XLSX.writeFile(wb, this.fileName);
   }
-
-  openSnackBar() {
-    this._snackBar.open('Cannonball!!', '', {
-      horizontalPosition: this.horizontalPosition,
-      verticalPosition: this.verticalPosition,
-      duration: 1000
-    });
+  updateData(event: any) {
+    let file = event.target.files[0];
+    let reader = new FileReader();
+    reader.readAsBinaryString(file);
+    reader.onload = () => {
+      let workbook = XLSX.read(reader.result, { type: 'binary' });
+      let sheetName = workbook.SheetNames;
+      this.excelData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName[0]]);
+      console.log('data', this.excelData);
+    }
   }
 }

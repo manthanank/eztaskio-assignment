@@ -8,6 +8,7 @@ import { DataPost } from '../models/data.model';
 export class DataService {
   private geturl = 'http://localhost:8080/api/filedatas';
   private posturl = 'http://localhost:8080/api/filedata';
+  private puturl = 'http://localhost:8080/api/filedata';
   constructor(
     private http: HttpClient
   ) { }
@@ -15,7 +16,10 @@ export class DataService {
     return this.http.get<DataPost[]>(this.geturl);
   }
   postData(data: any) {
-    return this.http.post(this.posturl, data)
+    return this.http.post<DataPost>(this.posturl, data)
+  }
+  updateData(data: any) {
+    return this.http.put<DataPost>(this.posturl + `/${data.id}`, data)
   }
 
 }
