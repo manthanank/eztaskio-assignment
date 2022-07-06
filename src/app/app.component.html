@@ -57,7 +57,7 @@
         class="form-control"
         id="file"
         name="file"
-        formControlName="excelfile"
+        formControlName="excelFile"
         (change)="updateData($event)"
         accept=".xlsx, .xls"
       />
@@ -67,25 +67,18 @@
     <div class="row">
       <div class="row">
         <div class="col">
-          <div class="col" *ngFor="let data of excelData">
-            Column Name :
-            {{ data.leadTitle }}
-          </div>
+          <div class="col">Column Name :</div>
           <select
             class="form-select"
             aria-label="Default select example"
             formControlName="leadTitle"
-            [disabled]="!excelFileForm"
           >
             <option value="">Select required</option>
             <option>{{ leadTitle }}</option>
           </select>
         </div>
         <div class="col">
-          <div class="col" *ngFor="let data of excelData">
-            Column Name :
-            {{ data.contactName }}
-          </div>
+          <div class="col">Column Name :</div>
           <select
             class="form-select"
             aria-label="Default select example"
@@ -96,10 +89,7 @@
           </select>
         </div>
         <div class="col">
-          <div class="col" *ngFor="let data of excelData">
-            Column Name :
-            {{ data.leadSource }}
-          </div>
+          <div class="col">Column Name :</div>
           <select
             class="form-select"
             aria-label="Default select example"
@@ -113,10 +103,7 @@
 
       <div class="row">
         <div class="col">
-          <div class="col" *ngFor="let data of excelData">
-            Column Name :
-            {{ data.companyName }}
-          </div>
+          <div class="col">Column Name :</div>
           <select
             class="form-select"
             aria-label="Default select example"
@@ -128,10 +115,7 @@
         </div>
 
         <div class="col">
-          <div class="col" *ngFor="let data of excelData">
-            Column Name :
-            {{ data.product }}
-          </div>
+          <div class="col">Column Name :</div>
           <select
             class="form-select"
             aria-label="Default select example"
@@ -142,10 +126,7 @@
           </select>
         </div>
         <div class="col">
-          <div class="col" *ngFor="let data of excelData">
-            Column Name :
-            {{ data.countryCode }}
-          </div>
+          <div class="col">Column Name :</div>
           <select
             class="form-select"
             aria-label="Default select example"
@@ -159,10 +140,7 @@
 
       <div class="row">
         <div class="col">
-          <div class="col" *ngFor="let data of excelData">
-            Column Name :
-            {{ data.email }}
-          </div>
+          <div class="col">Column Name :</div>
           <select
             class="form-select"
             aria-label="Default select example"
@@ -174,10 +152,7 @@
         </div>
 
         <div class="col">
-          <div class="col" *ngFor="let data of excelData">
-            Column Name :
-            {{ data.assignToTeamName }}
-          </div>
+          <div class="col">Column Name :</div>
           <select
             class="form-select"
             aria-label="Default select example"
@@ -188,10 +163,7 @@
           </select>
         </div>
         <div class="col">
-          <div class="col" *ngFor="let data of excelData">
-            Column Name :
-            {{ data.assignToUserEmail }}
-          </div>
+          <div class="col">Column Name :</div>
           <select
             class="form-select"
             aria-label="Default select example"
@@ -205,10 +177,7 @@
 
       <div class="row">
         <div class="col">
-          <div class="col" *ngFor="let data of excelData">
-            Column Name :
-            {{ data.note }}
-          </div>
+          <div class="col">Column Name :</div>
           <select
             class="form-select"
             aria-label="Default select example"
@@ -220,10 +189,7 @@
         </div>
 
         <div class="col">
-          <div class="col" *ngFor="let data of excelData">
-            Column Name :
-            {{ data.address }}
-          </div>
+          <div class="col">Column Name :</div>
           <select
             class="form-select"
             aria-label="Default select example"
@@ -234,10 +200,7 @@
           </select>
         </div>
         <div class="col">
-          <div class="col" *ngFor="let data of excelData">
-            Column Name :
-            {{ data.city }}
-          </div>
+          <div class="col">Column Name :</div>
           <select
             class="form-select"
             aria-label="Default select example"
@@ -251,10 +214,7 @@
 
       <div class="row">
         <div class="col">
-          <div class="col" *ngFor="let data of excelData">
-            Column Name :
-            {{ data.state }}
-          </div>
+          <div class="col">Column Name :</div>
           <select
             class="form-select"
             aria-label="Default select example"
@@ -266,10 +226,7 @@
         </div>
 
         <div class="col">
-          <div class="col" *ngFor="let data of excelData">
-            Column Name :
-            {{ data.region }}
-          </div>
+          <div class="col">Column Name :</div>
           <select
             class="form-select"
             aria-label="Default select example"
@@ -281,10 +238,7 @@
         </div>
 
         <div class="col">
-          <div class="col" *ngFor="let data of excelData">
-            Column Name :
-            {{ data.postalCode }}
-          </div>
+          <div class="col">Column Name :</div>
           <select
             class="form-select"
             aria-label="Default select example"
@@ -298,10 +252,7 @@
 
       <div class="row">
         <div class="col">
-          <div class="col" *ngFor="let data of excelData">
-            Column Name :
-            {{ data.countryName }}
-          </div>
+          <div class="col">Column Name :</div>
           <select
             class="form-select"
             aria-label="Default select example"
@@ -313,10 +264,7 @@
         </div>
 
         <div class="col">
-          <div class="col" *ngFor="let data of excelData">
-            Column Name :
-            {{ data.Age }}
-          </div>
+          <div class="col">Column Name :</div>
           <select
             class="form-select"
             aria-label="Default select example"
@@ -328,10 +276,7 @@
         </div>
 
         <div class="col">
-          <div class="col" *ngFor="let data of excelData">
-            Column Name :
-            {{ data.Salary }}
-          </div>
+          <div class="col">Column Name :</div>
           <select
             class="form-select"
             aria-label="Default select example"
@@ -345,7 +290,9 @@
     </div>
     <div class="row">
       <div class="container">
-        <button class="btn btn-primary" type="submit">Update</button>
+        <button class="btn btn-primary" type="submit" (click)="updateExcel()">
+          Update
+        </button>
       </div>
     </div>
   </form>

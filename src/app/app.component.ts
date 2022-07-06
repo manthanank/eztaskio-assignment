@@ -3,11 +3,27 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as XLSX from 'xlsx';
 import { DataPost } from './models/data.model';
 import { DataService } from './services/data.service';
-import { map, Observable, throwError } from 'rxjs';
+import { from, map, Observable, throwError } from 'rxjs';
 import { getFirestore, doc, addDoc, setDoc, getDoc, onSnapshot } from 'firebase/firestore';
 import { Firestore, collectionData, collection } from '@angular/fire/firestore';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
+
+// export interface Lead {
+//   leadId: string;
+//   leadTitle: string;
+//   actualLeadTitle: string;
+//   leadSource: string;
+//   currentLeadStage: number;
+//   contactName: string;
+//   contactId: string;
+//   companyName: string;
+//   contactPhone: string[];
+//   contactEmail: string[];
+//   companyId: string;
+//   owner: string;
+//   ownerId: string;
+// }
 
 @Component({
   selector: 'app-root',
@@ -42,7 +58,7 @@ export class AppComponent implements OnInit {
   countryName = ['countryName'];
   Age = ["Age"];
   Salary = ["Salary"];
-
+  sheet: any;
 
   fileForm = new FormGroup({
     file: new FormControl('', [Validators.required])
@@ -120,7 +136,7 @@ export class AppComponent implements OnInit {
       docs.SheetNames.forEach(async (sheetName) => {
         let rowObject = XLSX.utils.sheet_to_json(docs.Sheets[sheetName]);
         console.log('rowObject', rowObject);
-        const header = rowObject.shift();
+        //const header = rowObject.shift();
         // console.log('header', header);
         // this.dataService.postData(header).subscribe(data => {
         //   for (let i = 0; i < rowObject.length; i++) {
@@ -191,7 +207,39 @@ export class AppComponent implements OnInit {
       let workbook = XLSX.read(reader.result, { type: 'binary' });
       let sheetName = workbook.SheetNames;
       this.excelData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName[0]]);
-      console.log('data', this.excelData);
+      console.log('data', Object(this.excelData));
+      for (let i = 0; i < this.excelData.length; i++) {
+        const sheet = Object.assign({}, this.excelData[i]);
+        console.log('sheet', sheet);
+        const leadTitle = sheet;
+        const leads = {
+          leadTitle: leadTitle,
+        }
+        console.log('lead title', leads);
+        this.dataService.postData(leads).subscribe(data => {
+          console.log('data', data);
+        });
+        // let lead: Lead = {
+        //   leadId: sheet.leadId,
+        //   leadTitle: sheet.leadTitle,
+        //   actualLeadTitle: sheet.actualLeadTitle,
+        //   leadSource: sheet.leadSource,
+        //   currentLeadStage: sheet.currentLeadStage,
+        //   contactName: sheet.contactName,
+        //   contactId: sheet.contactId,
+        //   companyName: sheet.companyName,
+        //   contactPhone: sheet.contactPhone,
+        //   contactEmail: sheet.contactEmail,
+        //   companyId: sheet.companyId,
+        //   owner: sheet.owner,
+        //   ownerId: sheet.ownerId,
+        // }
+        // console.log('lead', lead);
+      }
+      this.excelFileForm.reset();
     }
+  }
+  updateExcel() {
+    console.log(this.excelForm.value);
   }
 }
