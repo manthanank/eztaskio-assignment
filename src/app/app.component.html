@@ -301,24 +301,7 @@
   <table class="table" id="excel-table">
     <thead>
       <tr>
-        <th scope="col">leadTitle</th>
-        <th scope="col">contactName</th>
-        <th scope="col">leadSource</th>
-        <th scope="col">companyName</th>
-        <th scope="col">product</th>
-        <th scope="col">countryCode</th>
-        <th scope="col">email</th>
-        <th scope="col">assignToTeamName</th>
-        <th scope="col">assignToUserEmail</th>
-        <th scope="col">note</th>
-        <th scope="col">address</th>
-        <th scope="col">city</th>
-        <th scope="col">state</th>
-        <th scope="col">region</th>
-        <th scope="col">postalCode</th>
-        <th scope="col">countryName</th>
-        <th scope="col">Age</th>
-        <th scope="col">Salary</th>
+        <th scope="col" *ngFor="let key of tabkey">{{ key }}</th>
       </tr>
     </thead>
     <tbody>
@@ -346,3 +329,12 @@
     </tbody>
   </table>
 </div>
+<table>
+  <thead>
+    <tr *ngFor="let key of tabkey">
+      {{
+        key
+      }}
+    </tr>
+  </thead>
+</table>

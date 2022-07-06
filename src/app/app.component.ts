@@ -92,6 +92,7 @@ export class AppComponent implements OnInit {
   }
   ngOnInit() {
     this.getData();
+    this.getRowData();
   }
 
   getData() {
@@ -208,17 +209,21 @@ export class AppComponent implements OnInit {
       let sheetName = workbook.SheetNames;
       this.excelData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName[0]]);
       console.log('data', Object(this.excelData));
+      // this.excelData.forEach(async (element) => {
+      //   console.log('element', element);
+      //   this.tabkey = Object.keys(element);
+      // });
       for (let i = 0; i < this.excelData.length; i++) {
         const sheet = Object.assign({}, this.excelData[i]);
         console.log('sheet', sheet);
-        const leadTitle = sheet;
-        const leads = {
-          leadTitle: leadTitle,
-        }
-        console.log('lead title', leads);
-        this.dataService.postData(leads).subscribe(data => {
+        // this.dataService.postData(leads).subscribe(data => {
+        //   console.log('data', data);
+        // });
+        this.dataService.postData(sheet).subscribe(data => {
           console.log('data', data);
         });
+        // this.tabkey = Object.keys(sheet);
+        // console.log('tabkey', this.tabkey);
         // let lead: Lead = {
         //   leadId: sheet.leadId,
         //   leadTitle: sheet.leadTitle,
@@ -241,5 +246,15 @@ export class AppComponent implements OnInit {
   }
   updateExcel() {
     console.log(this.excelForm.value);
+  }
+  tabkey: any;
+  tabValue: any;
+  getRowData() {
+    this.dataService.getData().subscribe(data => {
+      data.forEach(element => {
+        console.log('element', element);
+        this.tabkey = Object.keys(element);
+      });
+    });
   }
 }
