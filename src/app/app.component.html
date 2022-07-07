@@ -2,8 +2,283 @@
   <div>
     <h3 style="text-align: center">Upoad file</h3>
   </div>
+  <div class="container">
+    <!-- <div class="my-3">
+      <form [formGroup]="selectFileForm">
+        <div class="row">
+          <input
+            type="file"
+            class="form-control"
+            id="file"
+            name="file"
+            formControlName="selectfile"
+            (change)="selectFileData($event)"
+            accept=".xlsx, .xls"
+          />
+        </div>
+      </form>
+    </div> -->
+    <table>
+      <thead>
+        <tr>
+          <th *ngFor="let key of sheetKey">
+            {{ key }}
+          </th>
+        </tr>
+      </thead>
+    </table>
+    <form [formGroup]="excelForm">
+      <div class="row">
+        <div class="row">
+          <div class="col">
+            <div class="col">Column Name :</div>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              formControlName="leadTitle"
+            >
+              <option value="">Select required</option>
+              <option>{{ leadTitle }}</option>
+            </select>
+          </div>
+          <div class="col">
+            <div class="col">Column Name :</div>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              formControlName="contactName"
+            >
+              <option value="">Select required</option>
+              <option>{{ contactName }}</option>
+            </select>
+          </div>
+          <div class="col">
+            <div class="col">Column Name :</div>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              formControlName="leadSource"
+            >
+              <option value="">Select required</option>
+              <option>{{ leadSource }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="col">Column Name :</div>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              formControlName="companyName"
+            >
+              <option value="">Select required</option>
+              <option>{{ companyName }}</option>
+            </select>
+          </div>
+
+          <div class="col">
+            <div class="col">Column Name :</div>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              formControlName="product"
+            >
+              <option value="">Select required</option>
+              <option>{{ product }}</option>
+            </select>
+          </div>
+          <div class="col">
+            <div class="col">Column Name :</div>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              formControlName="countryCode"
+            >
+              <option value="">Select required</option>
+              <option>{{ countryCode }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="col">Column Name :</div>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              formControlName="email"
+            >
+              <option value="">Select required</option>
+              <option>{{ email }}</option>
+            </select>
+          </div>
+
+          <div class="col">
+            <div class="col">Column Name :</div>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              formControlName="assignToTeamName"
+            >
+              <option value="">Select required</option>
+              <option>{{ assignToTeamName }}</option>
+            </select>
+          </div>
+          <div class="col">
+            <div class="col">Column Name :</div>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              formControlName="assignToUserEmail"
+            >
+              <option value="">Select required</option>
+              <option>{{ assignToUserEmail }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="col">Column Name :</div>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              formControlName="note"
+            >
+              <option value="">Select required</option>
+              <option>{{ note }}</option>
+            </select>
+          </div>
+
+          <div class="col">
+            <div class="col">Column Name :</div>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              formControlName="address"
+            >
+              <option value="">Select required</option>
+              <option>{{ address }}</option>
+            </select>
+          </div>
+          <div class="col">
+            <div class="col">Column Name :</div>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              formControlName="city"
+            >
+              <option value="">Select required</option>
+              <option>{{ city }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="col">Column Name :</div>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              formControlName="state"
+            >
+              <option value="">Select required</option>
+              <option>{{ state }}</option>
+            </select>
+          </div>
+
+          <div class="col">
+            <div class="col">Column Name :</div>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              formControlName="region"
+            >
+              <option value="">Select required</option>
+              <option>{{ region }}</option>
+            </select>
+          </div>
+
+          <div class="col">
+            <div class="col">Column Name :</div>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              formControlName="postalCode"
+            >
+              <option value="">Select required</option>
+              <option>{{ postalCode }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="col">Column Name :</div>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              formControlName="countryName"
+            >
+              <option value="">Select required</option>
+              <option>{{ countryName }}</option>
+            </select>
+          </div>
+
+          <div class="col">
+            <div class="col">Column Name :</div>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              formControlName="Age"
+            >
+              <option value="">Select required</option>
+              <option>{{ Age }}</option>
+            </select>
+          </div>
+
+          <div class="col">
+            <div class="col">Column Name :</div>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              formControlName="Salary"
+            >
+              <option value="">Select required</option>
+              <option>{{ Salary }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="container">
+          <button class="btn btn-primary" type="submit" (click)="updateExcel()">
+            Select Rows
+          </button>
+        </div>
+      </div>
+    </form>
+    <div class="my-3">
+      <form [formGroup]="excelFileForm">
+        <div class="row">
+          <input
+            type="file"
+            class="form-control"
+            id="file"
+            name="file"
+            formControlName="excelFile"
+            (change)="updateData($event)"
+            accept=".xlsx, .xls"
+          />
+        </div>
+      </form>
+    </div>
+  </div>
+
   <div
-    class="alert alert-danger"
+    class="alert alert-danger my-3"
     role="alert"
     style="text-align: center"
     *ngIf="error"
@@ -49,259 +324,29 @@
   </div>
   <div class="my-2">{{ data }}</div>
 </div>
-<div class="container">
-  <form [formGroup]="excelFileForm">
-    <div class="row">
-      <input
-        type="file"
-        class="form-control"
-        id="file"
-        name="file"
-        formControlName="excelFile"
-        (change)="updateData($event)"
-        accept=".xlsx, .xls"
-      />
-    </div>
-  </form>
-  <form [formGroup]="excelForm">
-    <div class="row">
-      <div class="row">
-        <div class="col">
-          <div class="col">Column Name :</div>
-          <select
-            class="form-select"
-            aria-label="Default select example"
-            formControlName="leadTitle"
-          >
-            <option value="">Select required</option>
-            <option>{{ leadTitle }}</option>
-          </select>
-        </div>
-        <div class="col">
-          <div class="col">Column Name :</div>
-          <select
-            class="form-select"
-            aria-label="Default select example"
-            formControlName="contactName"
-          >
-            <option value="">Select required</option>
-            <option>{{ contactName }}</option>
-          </select>
-        </div>
-        <div class="col">
-          <div class="col">Column Name :</div>
-          <select
-            class="form-select"
-            aria-label="Default select example"
-            formControlName="leadSource"
-          >
-            <option value="">Select required</option>
-            <option>{{ leadSource }}</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col">
-          <div class="col">Column Name :</div>
-          <select
-            class="form-select"
-            aria-label="Default select example"
-            formControlName="companyName"
-          >
-            <option value="">Select required</option>
-            <option>{{ companyName }}</option>
-          </select>
-        </div>
-
-        <div class="col">
-          <div class="col">Column Name :</div>
-          <select
-            class="form-select"
-            aria-label="Default select example"
-            formControlName="product"
-          >
-            <option value="">Select required</option>
-            <option>{{ product }}</option>
-          </select>
-        </div>
-        <div class="col">
-          <div class="col">Column Name :</div>
-          <select
-            class="form-select"
-            aria-label="Default select example"
-            formControlName="countryCode"
-          >
-            <option value="">Select required</option>
-            <option>{{ countryCode }}</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col">
-          <div class="col">Column Name :</div>
-          <select
-            class="form-select"
-            aria-label="Default select example"
-            formControlName="email"
-          >
-            <option value="">Select required</option>
-            <option>{{ email }}</option>
-          </select>
-        </div>
-
-        <div class="col">
-          <div class="col">Column Name :</div>
-          <select
-            class="form-select"
-            aria-label="Default select example"
-            formControlName="assignToTeamName"
-          >
-            <option value="">Select required</option>
-            <option>{{ assignToTeamName }}</option>
-          </select>
-        </div>
-        <div class="col">
-          <div class="col">Column Name :</div>
-          <select
-            class="form-select"
-            aria-label="Default select example"
-            formControlName="assignToUserEmail"
-          >
-            <option value="">Select required</option>
-            <option>{{ assignToUserEmail }}</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col">
-          <div class="col">Column Name :</div>
-          <select
-            class="form-select"
-            aria-label="Default select example"
-            formControlName="note"
-          >
-            <option value="">Select required</option>
-            <option>{{ note }}</option>
-          </select>
-        </div>
-
-        <div class="col">
-          <div class="col">Column Name :</div>
-          <select
-            class="form-select"
-            aria-label="Default select example"
-            formControlName="address"
-          >
-            <option value="">Select required</option>
-            <option>{{ address }}</option>
-          </select>
-        </div>
-        <div class="col">
-          <div class="col">Column Name :</div>
-          <select
-            class="form-select"
-            aria-label="Default select example"
-            formControlName="city"
-          >
-            <option value="">Select required</option>
-            <option>{{ city }}</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col">
-          <div class="col">Column Name :</div>
-          <select
-            class="form-select"
-            aria-label="Default select example"
-            formControlName="state"
-          >
-            <option value="">Select required</option>
-            <option>{{ state }}</option>
-          </select>
-        </div>
-
-        <div class="col">
-          <div class="col">Column Name :</div>
-          <select
-            class="form-select"
-            aria-label="Default select example"
-            formControlName="region"
-          >
-            <option value="">Select required</option>
-            <option>{{ region }}</option>
-          </select>
-        </div>
-
-        <div class="col">
-          <div class="col">Column Name :</div>
-          <select
-            class="form-select"
-            aria-label="Default select example"
-            formControlName="postalCode"
-          >
-            <option value="">Select required</option>
-            <option>{{ postalCode }}</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col">
-          <div class="col">Column Name :</div>
-          <select
-            class="form-select"
-            aria-label="Default select example"
-            formControlName="countryName"
-          >
-            <option value="">Select required</option>
-            <option>{{ countryName }}</option>
-          </select>
-        </div>
-
-        <div class="col">
-          <div class="col">Column Name :</div>
-          <select
-            class="form-select"
-            aria-label="Default select example"
-            formControlName="Age"
-          >
-            <option value="">Select required</option>
-            <option>{{ Age }}</option>
-          </select>
-        </div>
-
-        <div class="col">
-          <div class="col">Column Name :</div>
-          <select
-            class="form-select"
-            aria-label="Default select example"
-            formControlName="Salary"
-          >
-            <option value="">Select required</option>
-            <option>{{ Salary }}</option>
-          </select>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="container">
-        <button class="btn btn-primary" type="submit" (click)="updateExcel()">
-          Update
-        </button>
-      </div>
-    </div>
-  </form>
-</div>
 <div>
   <table class="table" id="excel-table">
     <thead>
       <tr>
-        <th scope="col" *ngFor="let key of tabkey">{{ key }}</th>
+        <th scope="col">Index</th>
+        <th scope="col">leadTitle</th>
+        <th scope="col">contactName</th>
+        <th scope="col">leadSource</th>
+        <th scope="col">companyName</th>
+        <th scope="col">product</th>
+        <th scope="col">countryCode</th>
+        <th scope="col">email</th>
+        <th scope="col">assignToTeamName</th>
+        <th scope="col">assignToUserEmail</th>
+        <th scope="col">note</th>
+        <th scope="col">address</th>
+        <th scope="col">city</th>
+        <th scope="col">state</th>
+        <th scope="col">region</th>
+        <th scope="col">postalCode</th>
+        <th scope="col">countryName</th>
+        <th scope="col">Age</th>
+        <th scope="col">Salary</th>
       </tr>
     </thead>
     <tbody>
@@ -329,12 +374,3 @@
     </tbody>
   </table>
 </div>
-<table>
-  <thead>
-    <tr *ngFor="let key of tabkey">
-      {{
-        key
-      }}
-    </tr>
-  </thead>
-</table>

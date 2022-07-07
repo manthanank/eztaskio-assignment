@@ -9,21 +9,21 @@ import { Firestore, collectionData, collection } from '@angular/fire/firestore';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
 
-// export interface Lead {
-//   leadId: string;
-//   leadTitle: string;
-//   actualLeadTitle: string;
-//   leadSource: string;
-//   currentLeadStage: number;
-//   contactName: string;
-//   contactId: string;
-//   companyName: string;
-//   contactPhone: string[];
-//   contactEmail: string[];
-//   companyId: string;
-//   owner: string;
-//   ownerId: string;
-// }
+export interface Lead {
+  leadId: string;
+  leadTitle: string;
+  actualLeadTitle: string;
+  leadSource: string;
+  currentLeadStage: string;
+  contactName: string;
+  contactId: string;
+  companyName: string;
+  contactPhone: string;
+  contactEmail: string;
+  companyId: string;
+  owner: string;
+  ownerId: string;
+}
 
 @Component({
   selector: 'app-root',
@@ -59,7 +59,16 @@ export class AppComponent implements OnInit {
   Age = ["Age"];
   Salary = ["Salary"];
   sheet: any;
+  sheetData: any;
+  tabKey: any;
+  tabValues: any;
+  sheetDatas: any;
+  sheetValues: any;
+  sheetKey: any;
 
+  selectFileForm = new FormGroup({
+    selectfile: new FormControl('', Validators.required)
+  });
   fileForm = new FormGroup({
     file: new FormControl('', [Validators.required])
   });
@@ -137,18 +146,6 @@ export class AppComponent implements OnInit {
       docs.SheetNames.forEach(async (sheetName) => {
         let rowObject = XLSX.utils.sheet_to_json(docs.Sheets[sheetName]);
         console.log('rowObject', rowObject);
-        //const header = rowObject.shift();
-        // console.log('header', header);
-        // this.dataService.postData(header).subscribe(data => {
-        //   for (let i = 0; i < rowObject.length; i++) {
-        //     this.postedData = data;
-        //     console.log('data', this.postedData);
-        //   }
-        // }, err => {
-        //   console.log('error', err);
-        //   this.error = err.error;
-        // }
-        // );
         for (let i = 0; i < rowObject.length; i++) {
           this.dataService.postData(rowObject[i]).subscribe(data => {
             console.log('dataPosted', data);
@@ -165,32 +162,8 @@ export class AppComponent implements OnInit {
 
   selectFile(event: any) {
     this.file = event.target.files[0];
-    console.log(this.file);
+    console.log('files selected', this.file);
   }
-  // onFileSubmit(event: any) {
-  //   const target: DataTransfer = <DataTransfer>(event.target);
-  //   if (target.files.length !== 1) {
-  //     throw new Error('Cannot use multiple files');
-  //   }
-  //   const reader: FileReader = new FileReader();
-  //   reader.readAsBinaryString(target.files[0]);
-  //   reader.onload = async (e: any) => {
-  //     const bstr: string = e.target.result;
-  //     const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
-  //     const wsname: string = wb.SheetNames[0];
-  //     const ws: XLSX.WorkSheet = wb.Sheets[wsname];
-  //     console.log('string', ws);
-  //     this.data = (XLSX.utils.sheet_to_json(ws, { header: 1 }));
-  //     let dataObtained = JSON.stringify(this.data.toString());
-  //     console.log('dataObtained', dataObtained);
-  //     console.log('data obtained', Object.assign({}, this.data));
-  //     for (let i = 0; i < this.data.length; i++) {
-  //       const newCityRef = doc(collection(this.firestore, "data"));
-  //       await setDoc(newCityRef, (Object.assign({}, (this.data[i]))));
-  //       console.log('data changed', this.data[i]);
-  //     }
-  //   }
-  // }
   exportexcel() {
     let element = document.getElementById('excel-table');
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
@@ -200,6 +173,7 @@ export class AppComponent implements OnInit {
     /* save to file */
     XLSX.writeFile(wb, this.fileName);
   }
+  datasheet: any;
   updateData(event: any) {
     let file = event.target.files[0];
     let reader = new FileReader();
@@ -209,37 +183,56 @@ export class AppComponent implements OnInit {
       let sheetName = workbook.SheetNames;
       this.excelData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName[0]]);
       console.log('data', Object(this.excelData));
-      // this.excelData.forEach(async (element) => {
-      //   console.log('element', element);
-      //   this.tabkey = Object.keys(element);
-      // });
       for (let i = 0; i < this.excelData.length; i++) {
         const sheet = Object.assign({}, this.excelData[i]);
         console.log('sheet', sheet);
-        // this.dataService.postData(leads).subscribe(data => {
-        //   console.log('data', data);
-        // });
-        this.dataService.postData(sheet).subscribe(data => {
-          console.log('data', data);
-        });
-        // this.tabkey = Object.keys(sheet);
-        // console.log('tabkey', this.tabkey);
+        this.sheet = Object.keys(sheet);
+        console.log('sheet', this.sheet);
+        this.sheetData = Object.values(sheet);
+        for (let j = 0; j < this.sheet.length; j++) {
+          this.excelForm.value.leadTitle = this.sheetData[j];
+          this.excelForm.value.contactName = this.sheetData[j];
+          this.excelForm.value.leadSource = this.sheetData[j];
+          this.excelForm.value.companyName = this.sheetData[j];
+          this.excelForm.value.product = this.sheetData[j];
+          this.excelForm.value.countryCode = this.sheetData[j];
+          this.excelForm.value.email = this.sheetData[j];
+          this.excelForm.value.assignToTeamName = this.sheetData[j];
+          this.excelForm.value.assignToUserEmail = this.sheetData[j];
+          this.excelForm.value.note = this.sheetData[j];
+          this.excelForm.value.address = this.sheetData[j];
+          this.excelForm.value.city = this.sheetData[j];
+          this.excelForm.value.state = this.sheetData[j];
+          this.excelForm.value.region = this.sheetData[j];
+          this.excelForm.value.postalCode = this.sheetData[j];
+          this.excelForm.value.countryName = this.sheetData[j];
+          this.excelForm.value.Age = this.sheetData[j];
+          this.excelForm.value.Salary = this.sheetData[j];
+        }
+        this.dataService.postData(this.excelForm.value).subscribe(data => {
+          console.log('dataPosted', data);
+          this.getData();
+        }
+        );
         // let lead: Lead = {
-        //   leadId: sheet.leadId,
-        //   leadTitle: sheet.leadTitle,
-        //   actualLeadTitle: sheet.actualLeadTitle,
-        //   leadSource: sheet.leadSource,
-        //   currentLeadStage: sheet.currentLeadStage,
-        //   contactName: sheet.contactName,
-        //   contactId: sheet.contactId,
-        //   companyName: sheet.companyName,
-        //   contactPhone: sheet.contactPhone,
-        //   contactEmail: sheet.contactEmail,
-        //   companyId: sheet.companyId,
-        //   owner: sheet.owner,
-        //   ownerId: sheet.ownerId,
+        //   leadId: this.excelForm.value.contactName,
+        //   leadTitle: this.excelForm.value.contactName,
+        //   actualLeadTitle: this.excelForm.value.leadSource,
+        //   leadSource: this.excelForm.value.companyName,
+        //   currentLeadStage: this.excelForm.value.product,
+        //   contactName: this.excelForm.value.countryCode,
+        //   contactId: this.excelForm.value.assignToTeamName,
+        //   companyName: this.excelForm.value.assignToUserEmail,
+        //   contactPhone: this.excelForm.value.address,
+        //   contactEmail: this.excelForm.value.email,
+        //   companyId: this.excelForm.value.state,
+        //   owner: this.excelForm.value.postalCode,
+        //   ownerId: this.excelForm.value.Salary,
         // }
         // console.log('lead', lead);
+        // this.dataService.postData(lead).subscribe(data => {
+        //   console.log('data', data);
+        // });
       }
       this.excelFileForm.reset();
     }
@@ -254,7 +247,26 @@ export class AppComponent implements OnInit {
       data.forEach(element => {
         console.log('element', element);
         this.tabkey = Object.keys(element);
+        console.log('tabkey', this.tabkey);
       });
     });
+  }
+  selectFileData(event: any) {
+    let file = event.target.files[0];
+    let reader = new FileReader();
+    reader.readAsBinaryString(file);
+    reader.onload = () => {
+      let workbook = XLSX.read(reader.result, { type: 'binary' });
+      let sheetName = workbook.SheetNames;
+      this.excelData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName[0]]);
+      console.log('data', Object(this.excelData));
+      for (let i = 0; i < this.excelData.length; i++) {
+        const sheetDatas = Object.assign({}, this.excelData[i]);
+        console.log('sheetData', sheetDatas);
+        this.sheetKey = Object.keys(sheetDatas);
+        console.log('sheetKey', this.sheetKey);
+      }
+      this.excelFileForm.reset();
+    }
   }
 }
