@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +15,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
+import { GlobalErrorHandlerService } from './services/global-error-handler.service';
 @NgModule({
   declarations: [
     AppComponent
@@ -34,7 +35,10 @@ import { MaterialModule } from './material.module';
     AngularFirestoreModule,
     MatSnackBarModule
   ],
-  providers: [DataService],
+  providers: [DataService, {
+    provide: ErrorHandler,
+    useClass: GlobalErrorHandlerService
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

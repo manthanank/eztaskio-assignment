@@ -209,6 +209,7 @@ export class AppComponent implements OnInit {
           this.excelForm.get('Age').setValue(this.sheetData[16]);
           this.excelForm.get('Salary').setValue(this.sheetData[17]);
         }
+
         this.dataService.postData(this.excelForm.value).subscribe(data => {
           console.log('dataPosted', data);
           this.getData();
