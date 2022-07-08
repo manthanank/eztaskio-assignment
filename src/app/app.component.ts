@@ -189,25 +189,25 @@ export class AppComponent implements OnInit {
         this.sheet = Object.keys(sheet);
         console.log('sheet', this.sheet);
         this.sheetData = Object.values(sheet);
-        for (let j = 0; j < this.sheet.length; j++) {
-          this.excelForm.value.leadTitle = this.sheetData[j];
-          this.excelForm.value.contactName = this.sheetData[j];
-          this.excelForm.value.leadSource = this.sheetData[j];
-          this.excelForm.value.companyName = this.sheetData[j];
-          this.excelForm.value.product = this.sheetData[j];
-          this.excelForm.value.countryCode = this.sheetData[j];
-          this.excelForm.value.email = this.sheetData[j];
-          this.excelForm.value.assignToTeamName = this.sheetData[j];
-          this.excelForm.value.assignToUserEmail = this.sheetData[j];
-          this.excelForm.value.note = this.sheetData[j];
-          this.excelForm.value.address = this.sheetData[j];
-          this.excelForm.value.city = this.sheetData[j];
-          this.excelForm.value.state = this.sheetData[j];
-          this.excelForm.value.region = this.sheetData[j];
-          this.excelForm.value.postalCode = this.sheetData[j];
-          this.excelForm.value.countryName = this.sheetData[j];
-          this.excelForm.value.Age = this.sheetData[j];
-          this.excelForm.value.Salary = this.sheetData[j];
+        for (let j = 0; j <= this.sheet.length; j++) {
+          this.excelForm.get('leadTitle').setValue(this.sheetData[0]);
+          this.excelForm.get('contactName').setValue(this.sheetData[1]);
+          this.excelForm.get('leadSource').setValue(this.sheetData[2]);
+          this.excelForm.get('companyName').setValue(this.sheetData[3]);
+          this.excelForm.get('product').setValue(this.sheetData[4]);
+          this.excelForm.get('countryCode').setValue(this.sheetData[5]);
+          this.excelForm.get('email').setValue(this.sheetData[6]);
+          this.excelForm.get('assignToTeamName').setValue(this.sheetData[7]);
+          this.excelForm.get('assignToUserEmail').setValue(this.sheetData[8]);
+          this.excelForm.get('note').setValue(this.sheetData[9]);
+          this.excelForm.get('address').setValue(this.sheetData[10]);
+          this.excelForm.get('city').setValue(this.sheetData[11]);
+          this.excelForm.get('state').setValue(this.sheetData[12]);
+          this.excelForm.get('region').setValue(this.sheetData[13]);
+          this.excelForm.get('postalCode').setValue(this.sheetData[14]);
+          this.excelForm.get('countryName').setValue(this.sheetData[15]);
+          this.excelForm.get('Age').setValue(this.sheetData[16]);
+          this.excelForm.get('Salary').setValue(this.sheetData[17]);
         }
         this.dataService.postData(this.excelForm.value).subscribe(data => {
           console.log('dataPosted', data);
