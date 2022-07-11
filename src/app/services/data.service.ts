@@ -22,4 +22,10 @@ export class DataService {
     return this.http.put<DataPost>(this.posturl + `/${data.id}`, data)
   }
 
+  posttoFirestore(data: any) {
+    return this.http.post<DataPost>('http://localhost:4000/create', data)
+  }
+  getfromFirestore() {
+    return this.http.get<DataPost[]>('http://localhost:4000')
+  }
 }

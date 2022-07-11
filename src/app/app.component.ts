@@ -117,6 +117,18 @@ export class AppComponent implements OnInit {
         console.log('error', err);
         this.error = err.error;
       });
+    this.dataService.getfromFirestore().pipe(
+      map(data => {
+        this.postedData = data;
+      })
+    ).subscribe(data => {
+      //this.postedData = data;
+      console.log('data', this.postedData);
+    },
+      err => {
+        console.log('error', err);
+        this.error = err.error;
+      });
   }
 
   uploadFile() {
@@ -209,8 +221,12 @@ export class AppComponent implements OnInit {
           this.excelForm.get('Age').setValue(this.sheetData[16]);
           this.excelForm.get('Salary').setValue(this.sheetData[17]);
         }
-
-        this.dataService.postData(this.excelForm.value).subscribe(data => {
+        // this.dataService.postData(this.excelForm.value).subscribe(data => {
+        //   console.log('dataPosted', data);
+        //   this.getData();
+        // }
+        // );
+        this.dataService.posttoFirestore(this.excelForm.value).subscribe(data => {
           console.log('dataPosted', data);
           this.getData();
         }
