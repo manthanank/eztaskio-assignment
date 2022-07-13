@@ -251,7 +251,6 @@ export class AppComponent implements OnInit {
         //   console.log('data', data);
         // });
       }
-      this.excelFileForm.reset();
     }
   }
   updateExcel() {
