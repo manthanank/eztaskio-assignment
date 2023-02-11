@@ -14,4 +14,4 @@ jobs:
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ANGULAR_FIRESTORE_3ED06 }}'
-          projectId: angular-firestore-3ed06
+          projectId: eztaskio-assignment-3ed06

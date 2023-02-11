@@ -1,8 +1,8 @@
 {
   "hosting": [
     {
-      "target": "angular-firestore",
-      "public": "dist/angular-firestore",
+      "target": "eztaskio-assignment",
+      "public": "dist/eztaskio-assignment",
       "ignore": [
         "**/.*"
       ],
@@ -34,8 +34,8 @@
       ]
     },
     {
-      "target": "angular-firestore",
-      "public": "dist/angular-firestore",
+      "target": "eztaskio-assignment",
+      "public": "dist/eztaskio-assignment",
       "ignore": [
         "**/.*"
       ],

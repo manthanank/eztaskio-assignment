@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-firestore": {
+    "eztaskio-assignment": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular-firestore",
+            "outputPath": "dist/eztaskio-assignment",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -69,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "angular-firestore:build:production"
+              "browserTarget": "eztaskio-assignment:build:production"
             },
             "development": {
-              "browserTarget": "angular-firestore:build:development"
+              "browserTarget": "eztaskio-assignment:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -80,7 +80,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-firestore:build"
+            "browserTarget": "eztaskio-assignment:build"
           }
         },
         "test": {
@@ -106,9 +106,9 @@
           "options": {
             "prerender": false,
             "ssr": false,
-            "browserTarget": "angular-firestore:build:production",
-            "firebaseProject": "angular-firestore-3ed06",
-            "firebaseHostingSite": "angular-firestore-3ed06"
+            "browserTarget": "eztaskio-assignment:build:production",
+            "firebaseProject": "eztaskio-assignment-3ed06",
+            "firebaseHostingSite": "eztaskio-assignment-3ed06"
           }
         }
       }
